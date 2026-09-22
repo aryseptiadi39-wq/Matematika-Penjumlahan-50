@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPI Matematika - Penjumlahan Bersusun sampai 50 (Kelas 2A SD Semarang)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Fredoka & Poppins for playful kids educational look -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        fredoka: ['Fredoka', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        },
+                        sunshine: '#facc15',
+                        coral: '#fb7185',
+                        skyline: '#38bdf8',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 50%, #fef3c7 100%);
+            min-height: 100vh;
+        }
+        h1, h2, h3, .font-fun {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+        /* Bounce Animation */
+        @keyframes bounce-gentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .animate-bounce-gentle {
+            animation: bounce-gentle 2s infinite ease-in-out;
+        }
+        /* Pulse Badge */
+        @keyframes pulse-scale {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .animate-pulse-scale {
+            animation: pulse-scale 1.5s infinite;
+        }
+    </style>
+</head>
+<body class="text-slate-700 flex flex-col min-h-screen">
+
+    <!-- HEADER -->
+    <header class="bg-white/90 backdrop-blur-md shadow-md sticky top-0 z-50 border-b-4 border-emerald-400">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center text-white text-2xl shadow-md shadow-emerald-200">
+                    <i class="fa-solid fa-calculator"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold text-emerald-600 tracking-wide">Matematika Ceria Kelas 2A</h1>
+                    <p class="text-xs text-slate-500 font-medium"><i class="fa-solid fa-location-dot text-rose-500 mr-1"></i>SD di Kota Semarang | Penjumlahan Bersusun sampai 50</p>
+                </div>
+            </div>
+            
+            <!-- Navigation Menu Bar -->
+            <nav id="main-nav" class="flex flex-wrap gap-1 md:gap-2">
+                <button onclick="switchTab('beranda')" class="nav-btn px-3 py-1.5 rounded-xl font-semibold text-xs md:text-sm bg-emerald-500 text-white shadow transition transform active:scale-95 flex items-center gap-1.5" data-tab="beranda">
+                    <i class="fa-solid fa-house"></i> Beranda
+                </button>
+                <button onclick="switchTab('tujuan')" class="nav-btn px-3 py-1.5 rounded-xl font-semibold text-xs md:text-sm bg-slate-100 text-slate-600 hover:bg-emerald-100 hover:text-emerald-700 transition transform active:scale-95 flex items-center gap-1.5" data-tab="tujuan">
+                    <i class="fa-solid fa-book-open"></i> Tujuan
+                </button>
+                <button onclick="switchTab('puluhan')" class="nav-btn px-3 py-1.5 rounded-xl font-semibold text-xs md:text-sm bg-slate-100 text-slate-600 hover:bg-emerald-100 hover:text-emerald-700 transition transform active:scale-95 flex items-center gap-1.5" data-tab="puluhan">
+                    <i class="fa-solid fa-cubes"></i> Puluhan & Satuan
+                </button>
+                <button onclick="switchTab('penjumlahan')" class="nav-btn px-3 py-1.5 rounded-xl font-semibold text-xs md:text-sm bg-slate-100 text-slate-600 hover:bg-emerald-100 hover:text-emerald-700 transition transform active:scale-95 flex items-center gap-1.5" data-tab="penjumlahan">
+                    <i class="fa-solid fa-plus-minus"></i> Bersusun
+                </button>
+                <button onclick="switchTab('permainan')" class="nav-btn px-3 py-1.5 rounded-xl font-semibold text-xs md:text-sm bg-slate-100 text-slate-600 hover:bg-emerald-100 hover:text-emerald-700 transition transform active:scale-95 flex items-center gap-1.5" data-tab="permainan">
+                    <i class="fa-solid fa-gamepad"></i> Main Game
+                </button>
+                <button onclick="switchTab('makanan')" class="nav-btn px-3 py-1.5 rounded-xl font-semibold text-xs md:text-sm bg-slate-100 text-slate-600 hover:bg-emerald-100 hover:text-emerald-700 transition transform active:scale-95 flex items-center gap-1.5" data-tab="makanan">
+                    <i class="fa-solid fa-apple-whole"></i> Misi Sehat
+                </button>
+                <button onclick="switchTab('latihan')" class="nav-btn px-3 py-1.5 rounded-xl font-semibold text-xs md:text-sm bg-slate-100 text-slate-600 hover:bg-emerald-100 hover:text-emerald-700 transition transform active:scale-95 flex items-center gap-1.5" data-tab="latihan">
+                    <i class="fa-solid fa-pen-to-square"></i> Latihan
+                </button>
+                <button onclick="switchTab('kuis')" class="nav-btn px-3 py-1.5 rounded-xl font-semibold text-xs md:text-sm bg-slate-100 text-slate-600 hover:bg-emerald-100 hover:text-emerald-700 transition transform active:scale-95 flex items-center gap-1.5" data-tab="kuis">
+                    <i class="fa-solid fa-trophy"></i> Kuis Tantangan
+                </button>
+                <button onclick="switchTab('hasil')" class="nav-btn px-3 py-1.5 rounded-xl font-semibold text-xs md:text-sm bg-slate-100 text-slate-600 hover:bg-emerald-100 hover:text-emerald-700 transition transform active:scale-95 flex items-center gap-1.5" data-tab="hasil">
+                    <i class="fa-solid fa-chart-pie"></i> Hasil
+                </button>
+            </nav>
+        </div>
+        <!-- Progress Bar Global -->
+        <div class="w-full bg-slate-200 h-2">
+            <div id="global-progress" class="bg-emerald-500 h-2 transition-all duration-500" style="width: 10%;"></div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 mb-12">
+
+        <!-- TAB 1: BERANDA -->
+        <section id="tab-beranda" class="tab-pane">
+            <div class="bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500 rounded-3xl p-6 md:p-10 text-white shadow-xl relative overflow-hidden mb-8">
+                <div class="absolute -right-10 -bottom-10 text-white/10 text-9xl font-bold select-none">2A</div>
+                <div class="relative z-10 max-w-2xl">
+                    <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-3 inline-block backdrop-blur-sm">
+                        <i class="fa-solid fa-school mr-1"></i> SD di Kota Semarang
+                    </span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold font-fun mb-4 leading-tight">MEDIA PEMBELAJARAN INTERAKTIF<br>MATEMATIKA</h2>
+                    <p class="text-lg md:text-xl font-semibold text-emerald-100 mb-6">Materi: Penjumlahan Bersusun sampai 50</p>
+                    <p class="text-sm md:text-base text-emerald-50 mb-8 leading-relaxed">
+                        Halo adik-adik hebat Kelas 2A! Yuk belajar matematika dengan seru, menyenangkan, dan penuh warna bersama benda konkret, makanan sehat, serta permainan asyik!
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="switchTab('puluhan')" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-6 py-3 rounded-2xl shadow-lg transition transform hover:-translate-y-1 flex items-center gap-2 text-base">
+                            <i class="fa-solid fa-play"></i> Mulai Belajar Sekarang
+                        </button>
+                        <button onclick="switchTab('permainan')" class="bg-white/20 hover:bg-white/30 text-white font-bold px-6 py-3 rounded-2xl backdrop-blur-sm transition border border-white/40 flex items-center gap-2 text-base">
+                            <i class="fa-solid fa-gamepad"></i> Ayo Bermain Game
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ilustrasi & Kartu Info Ceria -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-3xl shadow-md border-b-4 border-emerald-400 text-center hover:shadow-lg transition">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl mx-auto flex items-center justify-center text-3xl mb-4 animate-bounce-gentle">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 font-fun">Konsep Konkret</h3>
+                    <p class="text-sm text-slate-600">Belajar nilai tempat puluhan dan satuan menggunakan benda nyata dan gambar makanan sehat khas Semarang!</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-md border-b-4 border-amber-400 text-center hover:shadow-lg transition">
+                    <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-2xl mx-auto flex items-center justify-center text-3xl mb-4 animate-bounce-gentle">
+                        <i class="fa-solid fa-plus-minus"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 font-fun">Penjumlahan Bersusun</h3>
+                    <p class="text-sm text-slate-600">Menguasai penjumlahan bersusun ke bawah tanpa menyimpan sampai angka 50 dengan mudah dan bertahap.</p>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-md border-b-4 border-rose-400 text-center hover:shadow-lg transition">
+                    <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-2xl mx-auto flex items-center justify-center text-3xl mb-4 animate-bounce-gentle">
+                        <i class="fa-solid fa-medal"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 font-fun">Kuis & Penghargaan</h3>
+                    <p class="text-sm text-slate-600">Dapatkan bintang ⭐, lencana keren 🏅, dan kumpulkan skor tertinggi dalam kuis interaktif!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: TUJUAN PEMBELAJARAN -->
+        <section id="tab-tujuan" class="tab-pane hidden">
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-2 border-emerald-100 max-w-4xl mx-auto">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-emerald-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold font-fun text-slate-800">Tujuan Pembelajaran</h2>
+                        <p class="text-sm text-slate-500">Apa yang akan kamu capai hari ini?</p>
+                    </div>
+                </div>
+
+                <div class="bg-emerald-50 p-6 rounded-2xl border border-emerald-200 mb-6">
+                    <p class="text-slate-700 font-medium mb-4">
+                        Setelah belajar menggunakan media ini, siswa Kelas 2A diharapkan mampu:
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3 bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                            <span class="bg-emerald-500 text-white w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5">1</span>
+                            <span class="text-slate-700 text-sm md:text-base">
+                                Menentukan nilai tempat <strong>puluhan dan satuan</strong> dengan tepat melalui pengamatan benda konkret atau gambar.
+                            </span>
+                        </li>
+                        <li class="flex items-start gap-3 bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                            <span class="bg-emerald-500 text-white w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5">2</span>
+                            <span class="text-slate-700 text-sm md:text-base">
+                                Menyelesaikan <strong>penjumlahan bersusun tanpa menyimpan sampai 50</strong> melalui kegiatan diskusi dan latihan interaktif.
+                            </span>
+                        </li>
+                        <li class="flex items-start gap-3 bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                            <span class="bg-emerald-500 text-white w-7 h-7 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5">3</span>
+                            <span class="text-slate-700 text-sm md:text-base">
+                                Menganalisis dan menyelesaikan <strong>soal cerita penjumlahan bersusun sampai 50</strong> dengan teliti melalui konteks makanan sehat sehari-hari.
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="switchTab('puluhan')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow transition flex items-center gap-2 mx-auto">
+                        Lanjut ke Materi Puluhan & Satuan <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: KEGIATAN 1 - MENGENAL PULUHAN & SATUAN -->
+        <section id="tab-puluhan" class="tab-pane hidden">
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-2 border-amber-100 max-w-4xl mx-auto">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-amber-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold font-fun text-slate-800">Kegiatan 1: Mengenal Puluhan & Satuan</h2>
+                        <p class="text-sm text-slate-500">Pahami konsep dasar sebelum menjumlahkan!</p>
+                    </div>
+                </div>
+
+                <!-- Penjelasan Konsep -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-amber-50 p-5 rounded-2xl border border-amber-200">
+                        <h3 class="text-lg font-bold text-amber-800 font-fun mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-layer-group"></i> Apa itu Puluhan?
+                        </h3>
+                        <p class="text-sm text-slate-700 mb-3">Puluhan adalah kumpulan 10 benda yang dijadikan satu kelompok.</p>
+                        <div class="bg-white p-3 rounded-xl border border-amber-100 flex items-center gap-3 text-xs text-slate-600">
+                            <span class="text-2xl">🍎🍎🍎🍎🍎<br>🍎🍎🍎🍎🍎</span>
+                            <div>
+                                <strong>10 Buah Apel</strong> = 1 Puluhan <br>
+                                *(Atau 10 Wortel / 10 Kotak Susu)*
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-cyan-50 p-5 rounded-2xl border border-cyan-200">
+                        <h3 class="text-lg font-bold text-cyan-800 font-fun mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-puzzle-piece"></i> Apa itu Satuan?
+                        </h3>
+                        <p class="text-sm text-slate-700 mb-3">Satuan adalah benda yang berdiri sendiri (jumlahnya kurang dari 10).</p>
+                        <div class="bg-white p-3 rounded-xl border border-cyan-100 flex items-center gap-3 text-xs text-slate-600">
+                            <span class="text-2xl">🍌🍌🍌</span>
+                            <div>
+                                <strong>3 Buah Pisang</strong> = 3 Satuan <br>
+                                *(Berdiri sendiri, belum 10)*
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contoh Visual Angka 23 -->
+                <div class="bg-gradient-to-br from-emerald-50 to-teal-50 p-6 rounded-2xl border border-emerald-200 mb-8 text-center">
+                    <h3 class="text-xl font-bold font-fun text-emerald-800 mb-2">Contoh Bilangan: 23</h3>
+                    <p class="text-sm text-slate-600 mb-4">Bagaimana bentuk bilangan 23 dengan benda konkret?</p>
+                    <div class="flex flex-wrap justify-center items-center gap-6 mb-4">
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                            <div class="text-3xl mb-1">🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎<br>🍎🍎🍎🍎🍎🍎🍎🍎🍎🍎</div>
+                            <span class="text-xs font-bold text-emerald-700">2 Kelompok 10 Apel (2 Puluhan)</span>
+                        </div>
+                        <div class="text-3xl font-bold text-emerald-600">+</div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                            <div class="text-3xl mb-1">🍌🍌🍌</div>
+                            <span class="text-xs font-bold text-cyan-700">3 Buah Pisang (3 Satuan)</span>
+                        </div>
+                    </div>
+                    <p class="text-md font-bold text-slate-800">Maka: <span class="text-emerald-600">23 = 2 Puluhan + 3 Satuan</span></p>
+                </div>
+
+                <!-- Mini Aktivitas Interaktif Puluhan & Satuan -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                    <h3 class="text-lg font-bold font-fun text-slate-800 mb-3 text-center">🎮 Coba Tebak Nilai Tempat!</h3>
+                    <div id="puluhan-quiz-container" class="text-center">
+                        <p class="text-slate-600 text-sm mb-4">Bilangan <strong id="pq-num" class="text-xl text-emerald-600 font-bold">34</strong> terdiri dari ... puluhan dan ... satuan?</p>
+                        <div class="flex justify-center items-center gap-4 mb-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-500 mb-1">Puluhan:</label>
+                                <input type="number" id="pq-ans-p" class="w-20 text-center p-2 rounded-xl border border-slate-300 font-bold text-lg" placeholder="0">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-500 mb-1">Satuan:</label>
+                                <input type="number" id="pq-ans-s" class="w-20 text-center p-2 rounded-xl border border-slate-300 font-bold text-lg" placeholder="0">
+                            </div>
+                        </div>
+                        <button onclick="checkPuluhanQuiz()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 py-2.5 rounded-xl shadow transition">
+                            Periksa Jawaban
+                        </button>
+                        <div id="pq-feedback" class="mt-3 font-semibold text-sm"></div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between mt-6">
+                    <button onclick="switchTab('tujuan')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali
+                    </button>
+                    <button onclick="switchTab('penjumlahan')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+                        Lanjut ke Penjumlahan Bersusun <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: KEGIATAN 2 - PENJUMLAHAN BERSUSUN -->
+        <section id="tab-penjumlahan" class="tab-pane hidden">
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-2 border-emerald-100 max-w-4xl mx-auto">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-teal-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow">
+                        <i class="fa-solid fa-plus-minus"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold font-fun text-slate-800">Kegiatan 2: Belajar Penjumlahan Bersusun</h2>
+                        <p class="text-sm text-slate-500">Cara mudah menjumlahkan bilangan sampai 50 ke bawah</p>
+                    </div>
+                </div>
+
+                <!-- Penjelasan Langkah -->
+                <div class="bg-teal-50 p-6 rounded-2xl border border-teal-200 mb-6">
+                    <h3 class="text-lg font-bold text-teal-800 font-fun mb-3">Cara Menghitung Penjumlahan Bersusun:</h3>
+                    <ol class="list-decimal list-inside space-y-2 text-sm text-slate-700">
+                        <li>Letakkan angka bersusun ke bawah (Puluhan sejajar puluhan, satuan sejajar satuan).</li>
+                        <li>Jumlahkan angka pada tempat <strong>satuan terlebih dahulu</strong> (kolom kanan).</li>
+                        <li>Kemudian jumlahkan angka pada tempat <strong>puluhan</strong> (kolom kiri).</li>
+                        <li>Ingat! Karena tanpa menyimpan, hasil satuan tidak boleh lebih dari 9.</li>
+                    </ol>
+                </div>
+
+                <!-- Contoh Utama: 23 + 14 = 37 -->
+                <div class="bg-white p-6 rounded-2xl border-2 border-emerald-300 shadow-sm mb-8 text-center">
+                    <h3 class="text-xl font-bold font-fun text-emerald-700 mb-3">Contoh Soal: 23 + 14 = ...</h3>
+                    <div class="inline-block bg-slate-50 p-6 rounded-2xl border border-slate-200 font-mono text-2xl tracking-widest text-slate-800 mb-4">
+                        <div class="flex justify-end pr-4 text-xs text-slate-400 font-sans mb-1">
+                            <span class="mr-4">Puluhan</span><span>Satuan</span>
+                        </div>
+                        <div class="flex justify-end font-bold">
+                            <span class="mr-6">2</span><span>3</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b-2 border-slate-400 pb-1 mb-1">
+                            <span class="text-emerald-600 font-sans text-xl">+</span>
+                            <div class="font-bold">
+                                <span class="mr-6">1</span><span>4</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-end font-bold text-emerald-600">
+                            <span class="mr-6">3</span><span>7</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left max-w-xl mx-auto text-sm bg-emerald-50 p-4 rounded-xl">
+                        <div>
+                            <strong class="text-emerald-800">1. Satuan:</strong> 3 + 4 = 7
+                        </div>
+                        <div>
+                            <strong class="text-emerald-800">2. Puluhan:</strong> 2 + 1 = 3
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daftar Contoh Interaktif yang Bisa Diklik -->
+                <h3 class="text-lg font-bold font-fun text-slate-800 mb-3">💡 Contoh Lain (Klik untuk Melihat Langkahnya):</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <button onclick="showStepExample('12 + 25', '12', '25', '37')" class="example-btn bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 p-4 rounded-2xl text-center transition shadow-sm">
+                        <div class="text-lg font-bold text-emerald-600">12 + 25</div>
+                        <div class="text-xs text-slate-500 mt-1">Klik untuk lihat</div>
+                    </button>
+                    <button onclick="showStepExample('21 + 17', '21', '17', '38')" class="example-btn bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 p-4 rounded-2xl text-center transition shadow-sm">
+                        <div class="text-lg font-bold text-emerald-600">21 + 17</div>
+                        <div class="text-xs text-slate-500 mt-1">Klik untuk lihat</div>
+                    </button>
+                    <button onclick="showStepExample('13 + 24', '13', '24', '37')" class="example-btn bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 p-4 rounded-2xl text-center transition shadow-sm">
+                        <div class="text-lg font-bold text-emerald-600">13 + 24</div>
+                        <div class="text-xs text-slate-500 mt-1">Klik untuk lihat</div>
+                    </button>
+                    <button onclick="showStepExample('25 + 14', '25', '14', '39')" class="example-btn bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 p-4 rounded-2xl text-center transition shadow-sm">
+                        <div class="text-lg font-bold text-emerald-600">25 + 14</div>
+                        <div class="text-xs text-slate-500 mt-1">Klik untuk lihat</div>
+                    </button>
+                </div>
+
+                <!-- Kotak Tampil Detail Contoh -->
+                <div id="example-detail-box" class="bg-emerald-500 text-white p-5 rounded-2xl shadow-md hidden text-center mb-6">
+                    <h4 id="ex-title" class="text-xl font-bold font-fun mb-2">Penyelesaian: 12 + 25</h4>
+                    <p id="ex-desc" class="text-sm">Jumlahkan satuan (2+5=7), lalu puluhan (1+2=3). Hasilnya 37!</p>
+                </div>
+
+                <div class="flex justify-between">
+                    <button onclick="switchTab('puluhan')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali
+                    </button>
+                    <button onclick="switchTab('permainan')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+                        Lanjut ke Permainan <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: KEGIATAN 3 - PERMAINAN INTERAKTIF -->
+        <section id="tab-permainan" class="tab-pane hidden">
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-2 border-sunshine max-w-4xl mx-auto">
+                <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-amber-400 text-slate-900 rounded-2xl flex items-center justify-center text-2xl shadow">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold font-fun text-slate-800">🎮 Tangkap Jawaban yang Benar!</h2>
+                            <p class="text-sm text-slate-500">Pilih kartu jawaban yang tepat untuk setiap soal penjumlahan.</p>
+                        </div>
+                    </div>
+                    <div class="bg-amber-100 px-4 py-2 rounded-2xl border border-amber-300 font-bold text-amber-800 text-sm">
+                        Soal <span id="game-current-q">1</span> dari 10 | Skor: <span id="game-score">0</span> ⭐
+                    </div>
+                </div>
+
+                <!-- Area Game -->
+                <div id="game-area" class="bg-gradient-to-br from-amber-50 to-orange-50 p-6 md:p-8 rounded-3xl border border-amber-200 text-center mb-6">
+                    <span class="bg-amber-400 text-slate-900 px-3 py-1 rounded-full text-xs font-bold inline-block mb-3">Tantangan Seru</span>
+                    <div class="text-4xl md:text-5xl font-extrabold font-fun text-slate-800 mb-6 tracking-wide" id="game-question-text">
+                        24 + 13 = ?
+                    </div>
+                    <div id="game-options" class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                        <!-- Pilihan Kartu -->
+                    </div>
+                    <div id="game-feedback" class="mt-6 text-base font-bold min-h-[30px]"></div>
+                </div>
+
+                <!-- Tombol Lanjut Game / Selesai -->
+                <div id="game-next-container" class="text-center hidden">
+                    <button onclick="nextGameQuestion()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3 rounded-2xl shadow transition text-base">
+                        Soal Berikutnya <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+
+                <div class="flex justify-between mt-6">
+                    <button onclick="switchTab('penjumlahan')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali
+                    </button>
+                    <button onclick="switchTab('makanan')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+                        Lanjut ke Misi Makanan Sehat <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 6: KEGIATAN 4 - MISI MAKANAN SEHAT -->
+        <section id="tab-makanan" class="tab-pane hidden">
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-2 border-rose-100 max-w-4xl mx-auto">
+                <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-rose-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow">
+                            <i class="fa-solid fa-apple-whole"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold font-fun text-slate-800">🥗 Misi Makanan Sehat</h2>
+                            <p class="text-sm text-slate-500">Soal cerita seputar jajanan sehat di kantin sekolah.</p>
+                        </div>
+                    </div>
+                    <div class="bg-rose-100 px-4 py-2 rounded-2xl border border-rose-300 font-bold text-rose-800 text-sm">
+                        Misi <span id="story-current">1</span> dari 5
+                    </div>
+                </div>
+
+                <!-- Kontainer Soal Cerita -->
+                <div class="bg-gradient-to-br from-rose-50 to-orange-50 p-6 md:p-8 rounded-3xl border border-rose-200 mb-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-3xl" id="story-icon">🍎</span>
+                        <h3 class="text-lg font-bold font-fun text-rose-900" id="story-title">Kantin Sekolah Sehat</h3>
+                    </div>
+                    <p class="text-base text-slate-700 mb-6 bg-white p-5 rounded-2xl border border-rose-100 shadow-sm leading-relaxed" id="story-text">
+                        "Di kantin sehat sekolah, tersedia 23 buah apel dan 14 buah jeruk. Berapa jumlah buah apel dan jeruk seluruhnya?"
+                    </p>
+
+                    <!-- Pertanyaan Analisis -->
+                    <div class="space-y-4 mb-6">
+                        <div class="bg-white p-4 rounded-xl border border-rose-100 shadow-sm">
+                            <label class="block text-xs font-bold text-rose-700 mb-1">1. Apa yang diketahui dari soal?</label>
+                            <input type="text" id="story-ans-1" class="w-full p-2.5 rounded-xl border border-slate-300 text-sm" placeholder="Contoh: Apel 23 dan jeruk 14">
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-rose-100 shadow-sm">
+                            <label class="block text-xs font-bold text-rose-700 mb-1">2. Operasi hitung apa yang digunakan?</label>
+                            <select id="story-ans-2" class="w-full p-2.5 rounded-xl border border-slate-300 text-sm bg-white">
+                                <option value="">-- Pilih Operasi Hitung --</option>
+                                <option value="penjumlahan">Penjumlahan (+)</option>
+                                <option value="pengurangan">Pengurangan (-)</option>
+                            </select>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-rose-100 shadow-sm">
+                            <label class="block text-xs font-bold text-rose-700 mb-1">3. Berapa hasil penjumlahannya?</label>
+                            <input type="number" id="story-ans-3" class="w-32 p-2.5 rounded-xl border border-slate-300 text-sm font-bold text-center" placeholder="0">
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button onclick="checkStoryMission()" class="bg-rose-500 hover:bg-rose-600 text-white font-bold px-8 py-3 rounded-xl shadow transition">
+                            Periksa Misi Sehat 🌟
+                        </button>
+                    </div>
+                    <div id="story-feedback" class="mt-4 text-center font-bold text-sm"></div>
+                </div>
+
+                <div class="flex justify-between">
+                    <button onclick="switchTab('permainan')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali
+                    </button>
+                    <button onclick="switchTab('latihan')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+                        Lanjut ke Latihan Mandiri <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 7: LATIHAN MANDIRI (10 Nomor x 10 Variasi Bank Soal) -->
+        <section id="tab-latihan" class="tab-pane hidden">
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-2 border-teal-100 max-w-4xl mx-auto">
+                <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-teal-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold font-fun text-slate-800">📝 Latihan Mandiri</h2>
+                            <p class="text-sm text-slate-500">Uji pemahamanmu dengan 10 soal acak dari bank soal!</p>
+                        </div>
+                    </div>
+                    <button onclick="initLatihan()" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-4 py-2 rounded-xl text-xs shadow transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-shuffle"></i> Acak Soal Baru
+                    </button>
+                </div>
+
+                <!-- Informasi Randomizer Indicator -->
+                <div class="bg-teal-50 p-3 rounded-xl border border-teal-200 text-xs text-teal-800 mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-star text-amber-500 text-base"></i>
+                    <span id="latihan-random-info">Soal untukmu hari ini berbeda! Yuk, coba kerjakan dengan teliti! 🌟</span>
+                </div>
+
+                <!-- Form Soal Latihan Dinamis -->
+                <div id="latihan-questions-container" class="space-y-6 mb-8">
+                    <!-- Soal-soal dirender via JavaScript -->
+                </div>
+
+                <div class="text-center mb-6">
+                    <button onclick="submitLatihan()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3 rounded-2xl shadow-lg transition text-base">
+                        Selesai & Periksa Jawaban Latihan 🏆
+                    </button>
+                </div>
+
+                <!-- Hasil Latihan -->
+                <div id="latihan-result-box" class="hidden bg-emerald-50 p-6 rounded-2xl border-2 border-emerald-300 text-center mb-6">
+                    <h3 class="text-2xl font-bold font-fun text-emerald-800 mb-2">Hasil Latihanmu!</h3>
+                    <p class="text-lg text-slate-700 mb-3" id="latihan-score-text">Benar: 10 / 10 | Skor: 100</p>
+                    <p class="text-sm text-emerald-600 font-semibold" id="latihan-msg">Luar biasa! Kamu sangat hebat! 🌟</p>
+                </div>
+
+                <div class="flex justify-between">
+                    <button onclick="switchTab('makanan')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali
+                    </button>
+                    <button onclick="switchTab('kuis')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+                        Lanjut ke Kuis Tantangan <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 8: KUIS TANTANGAN (10 Nomor x 10 Variasi Bank Soal + Sistem Poin) -->
+        <section id="tab-kuis" class="tab-pane hidden">
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-2 border-amber-200 max-w-4xl mx-auto">
+                <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-amber-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold font-fun text-slate-800">🏆 Kuis Tantangan: "Aku Jago Matematika!"</h2>
+                            <p class="text-sm text-slate-500">10 Soal akhir untuk membuktikan kemampuanmu. Setiap benar = 10 poin!</p>
+                        </div>
+                    </div>
+                    <button onclick="initKuis()" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-4 py-2 rounded-xl text-xs shadow transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-shuffle"></i> Mulai Kuis Baru
+                    </button>
+                </div>
+
+                <!-- Informasi Randomizer Indicator Kuis -->
+                <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 text-xs text-amber-800 mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-star text-amber-500 text-base"></i>
+                    <span id="kuis-random-info">Soal kuis telah diacak khusus untukmu! Kerjakan dengan cermat ya! 🌟</span>
+                </div>
+
+                <!-- Form Soal Kuis Dinamis -->
+                <div id="kuis-questions-container" class="space-y-6 mb-8">
+                    <!-- Soal Kuis dirender via JavaScript -->
+                </div>
+
+                <div class="text-center mb-6">
+                    <button onclick="submitKuis()" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-extrabold px-8 py-3.5 rounded-2xl shadow-lg transition text-base">
+                        Kumpul & Lihat Hasil Kuis 🏆
+                    </button>
+                </div>
+
+                <!-- Hasil Kuis -->
+                <div id="kuis-result-box" class="hidden bg-amber-50 p-6 rounded-2xl border-2 border-amber-300 text-center mb-6">
+                    <div id="badge-container" class="mb-3 flex justify-center"></div>
+                    <h3 class="text-2xl font-bold font-fun text-amber-900 mb-2" id="kuis-result-title">Hasil Kuis Selesai!</h3>
+                    <p class="text-lg text-slate-700 mb-2" id="kuis-score-display">Skor Kamu: 100 dari 100</p>
+                    <p class="text-md font-bold text-emerald-700" id="kuis-feedback-msg">Luar biasa! Kamu sangat hebat! 🌟</p>
+                </div>
+
+                <div class="flex justify-between">
+                    <button onclick="switchTab('latihan')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-arrow-left"></i> Kembali
+                    </button>
+                    <button onclick="switchTab('hasil')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+                        Lihat Rekap Hasil Belajar <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 9: HASIL BELAJAR -->
+        <section id="tab-hasil" class="tab-pane hidden">
+            <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border-2 border-emerald-100 max-w-4xl mx-auto">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-12 bg-emerald-500 text-white rounded-2xl flex items-center justify-center text-2xl shadow">
+                        <i class="fa-solid fa-chart-pie"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold font-fun text-slate-800">📊 Rekap Hasil Belajarmu</h2>
+                        <p class="text-sm text-slate-500">Lihat prestasi dan lencana yang sudah kamu kumpulkan di Kelas 2A Semarang!</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-emerald-50 p-6 rounded-2xl border border-emerald-200 text-center">
+                        <div class="text-3xl font-bold font-fun text-emerald-600 mb-1" id="stat-game-score">0 ⭐</div>
+                        <div class="text-xs font-semibold text-slate-600">Skor Game Interaktif</div>
+                    </div>
+                    <div class="bg-teal-50 p-6 rounded-2xl border border-teal-200 text-center">
+                        <div class="text-3xl font-bold font-fun text-teal-600 mb-1" id="stat-latihan-score">Belum / 10</div>
+                        <div class="text-xs font-semibold text-slate-600">Skor Latihan Mandiri</div>
+                    </div>
+                    <div class="bg-amber-50 p-6 rounded-2xl border border-amber-200 text-center">
+                        <div class="text-3xl font-bold font-fun text-amber-600 mb-1" id="stat-kuis-score">0 / 100</div>
+                        <div class="text-xs font-semibold text-slate-600">Skor Kuis Tantangan</div>
+                    </div>
+                </div>
+
+                <!-- Koleksi Lencana / Badge -->
+                <h3 class="text-lg font-bold font-fun text-slate-800 mb-4">🏅 Koleksi Lencana Kerenmu:</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div id="badge-1" class="bg-slate-100 p-4 rounded-2xl border border-slate-200 text-center opacity-60 transition">
+                        <div class="text-3xl mb-2">🏅</div>
+                        <div class="text-xs font-bold text-slate-700">Ahli Puluhan & Satuan</div>
+                        <div class="text-[10px] text-slate-400 mt-1">Selesaikan Kegiatan 1</div>
+                    </div>
+                    <div id="badge-2" class="bg-slate-100 p-4 rounded-2xl border border-slate-200 text-center opacity-60 transition">
+                        <div class="text-3xl mb-2">🏅</div>
+                        <div class="text-xs font-bold text-slate-700">Jago Penjumlahan</div>
+                        <div class="text-[10px] text-slate-400 mt-1">Mainkan Game Interaktif</div>
+                    </div>
+                    <div id="badge-3" class="bg-slate-100 p-4 rounded-2xl border border-slate-200 text-center opacity-60 transition">
+                        <div class="text-3xl mb-2">🏅</div>
+                        <div class="text-xs font-bold text-slate-700">Detektif Soal Cerita</div>
+                        <div class="text-[10px] text-slate-400 mt-1">Selesaikan Misi Sehat</div>
+                    </div>
+                    <div id="badge-4" class="bg-slate-100 p-4 rounded-2xl border border-slate-200 text-center opacity-60 transition">
+                        <div class="text-3xl mb-2">🏆</div>
+                        <div class="text-xs font-bold text-slate-700">Juara Matematika</div>
+                        <div class="text-[10px] text-slate-400 mt-1">Raih Nilai Kuis Tinggi</div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="switchTab('beranda')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow transition">
+                        <i class="fa-solid fa-house mr-1"></i> Kembali ke Beranda
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white/80 backdrop-blur-md border-t border-slate-200 py-4 text-center text-xs text-slate-500 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p>Media Pembelajaran Interaktif Matematika Kelas 2A SD • Kota Semarang</p>
+            <p class="font-semibold text-emerald-600">Creator : Ary Septiadi</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Tab Navigation Management
+        const tabs = ['beranda', 'tujuan', 'puluhan', 'penjumlahan', 'permainan', 'makanan', 'latihan', 'kuis', 'hasil'];
+        
+        function switchTab(tabId) {
+            tabs.forEach(t => {
+                const el = document.getElementById(`tab-${t}`);
+                if (el) el.classList.add('hidden');
+            });
+            const target = document.getElementById(`tab-${tabId}`);
+            if (target) {
+                target.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Update Nav Active State
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if (btn.getAttribute('data-tab') === tabId) {
+                    btn.className = "nav-btn px-3 py-1.5 rounded-xl font-semibold text-xs md:text-sm bg-emerald-500 text-white shadow transition transform active:scale-95 flex items-center gap-1.5";
+                } else {
+                    btn.className = "nav-btn px-3 py-1.5 rounded-xl font-semibold text-xs md:text-sm bg-slate-100 text-slate-600 hover:bg-emerald-100 hover:text-emerald-700 transition transform active:scale-95 flex items-center gap-1.5";
+                }
+            });
+
+            // Update Progress Bar
+            const index = tabs.indexOf(tabId);
+            const percent = Math.round(((index + 1) / tabs.length) * 100);
+            const progressBar = document.getElementById('global-progress');
+            if (progressBar) progressBar.style.width = percent + '%';
+
+            // Unlock Badges based on progress
+            if (tabId === 'puluhan') unlockBadge('badge-1');
+            if (tabId === 'permainan') unlockBadge('badge-2');
+            if (tabId === 'makanan') unlockBadge('badge-3');
+            if (tabId === 'kuis' || tabId === 'hasil') unlockBadge('badge-4');
+            updateStatDisplay();
+        }
+
+        function unlockBadge(badgeId) {
+            const b = document.getElementById(badgeId);
+            if (b) {
+                b.classList.remove('opacity-60', 'bg-slate-100');
+                b.classList.add('bg-amber-50', 'border-amber-300', 'shadow-md', 'animate-pulse-scale');
+            }
+        }
+
+        // Kegiatan 1 Quiz Puluhan & Satuan
+        function checkPuluhanQuiz() {
+            const p = document.getElementById('pq-ans-p').value.trim();
+            const s = document.getElementById('pq-ans-s').value.trim();
+            const fb = document.getElementById('pq-feedback');
+            if (p === '3' && s === '4') {
+                fb.innerHTML = '<span class="text-emerald-600">Hebat! Kamu sudah menemukan nilai tempat dengan tepat! ⭐</span>';
+            } else {
+                fb.innerHTML = '<span class="text-rose-600">Coba lagi. Ingat, 1 puluhan terdiri dari 10 satuan. Bilangan 34 adalah 3 puluhan dan 4 satuan!</span>';
+            }
+        }
+
+        // Kegiatan 2 Step Example Viewer
+        function showStepExample(title, num1, num2, result) {
+            const box = document.getElementById('example-detail-box');
+            const t = document.getElementById('ex-title');
+            const d = document.getElementById('ex-desc');
+            box.classList.remove('hidden');
+            t.innerText = `Penyelesaian: ${title}`;
+            
+            // Extract units and tens
+            const u1 = parseInt(num1[1]), t1 = parseInt(num1[0]);
+            const u2 = parseInt(num2[1]), t2 = parseInt(num2[0]);
+            d.innerHTML = `Langkah:<br>1. Satuan: ${u1} + ${u2} = ${u1+u2}<br>2. Puluhan: ${t1} + ${t2} = ${t1+t2}<br>Hasil akhir: <strong>${result}</strong> (Tanpa menyimpan!)`;
+        }
+
+        // Kegiatan 3 - Game "Tangkap Jawaban yang Benar" (10 Soal)
+        const gameQuestions = [
+            { q: "24 + 13 = ?", options: [27, 37, 38, 47], answer: 37 },
+            { q: "12 + 25 = ?", options: [35, 37, 39, 42], answer: 37 },
+            { q: "21 + 17 = ?", options: [36, 38, 48, 39], answer: 38 },
+            { q: "13 + 24 = ?", options: [36, 37, 47, 35], answer: 37 },
+            { q: "25 + 14 = ?", options: [39, 41, 38, 37], answer: 39 },
+            { q: "20 + 15 = ?", options: [35, 45, 37, 36], answer: 35 },
+            { q: "14 + 23 = ?", options: [36, 37, 38, 47], answer: 37 },
+            { q: "22 + 16 = ?", options: [38, 48, 36, 39], answer: 38 },
+            { q: "11 + 27 = ?", options: [37, 38, 39, 48], answer: 38 },
+            { q: "23 + 12 = ?", options: [34, 35, 36, 45], answer: 35 }
+        ];
+        let currentGameIndex = 0;
+        let gameScore = 0;
+
+        function loadGameQuestion() {
+            if (currentGameIndex >= gameQuestions.length) {
+                document.getElementById('game-area').innerHTML = `
+                    <div class="py-8">
+                        <div class="text-5xl mb-3">🎉</div>
+                        <h3 class="text-2xl font-bold font-fun text-slate-800 mb-2">Permainan Selesai!</h3>
+                        <p class="text-slate-600 mb-4">Kamu berhasil mengumpulkan skor game: <strong>${gameScore} ⭐</strong></p>
+                        <button onclick="resetGame()" class="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-6 py-2.5 rounded-xl shadow">Main Lagi 🔄</button>
+                    </div>
+                `;
+                document.getElementById('game-next-container').classList.add('hidden');
+                return;
+            }
+
+            const item = gameQuestions[currentGameIndex];
+            document.getElementById('game-current-q').innerText = currentGameIndex + 1;
+            document.getElementById('game-question-text').innerText = item.q;
+            document.getElementById('game-feedback').innerHTML = '';
+            document.getElementById('game-next-container').classList.add('hidden');
+
+            // Shuffle options
+            const shuffled = [...item.options].sort(() => Math.random() - 0.5);
+            const optContainer = document.getElementById('game-options');
+            optContainer.innerHTML = '';
+            shuffled.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "bg-white hover:bg-amber-100 text-slate-800 font-extrabold text-xl py-4 rounded-2xl shadow-sm border border-amber-200 transition transform active:scale-95";
+                btn.innerText = opt;
+                btn.onclick = () => checkGameAnswer(opt, item.answer, btn);
+                optContainer.appendChild(btn);
+            });
+        }
+
+        function checkGameAnswer(selected, correct, btn) {
+            const fb = document.getElementById('game-feedback');
+            // Disable all options
+            const buttons = document.getElementById('game-options').getElementsByTagName('button');
+            for (let b of buttons) {
+                b.disabled = true;
+                if (parseInt(b.innerText) === correct) {
+                    b.classList.remove('bg-white', 'hover:bg-amber-100');
+                    b.classList.add('bg-emerald-500', 'text-white');
+                }
+            }
+
+            if (selected === correct) {
+                fb.innerHTML = '<span class="text-emerald-600 text-lg">🎉 Benar! Hebat sekali!</span>';
+                gameScore += 10;
+                document.getElementById('game-score').innerText = gameScore;
+            } else {
+                fb.innerHTML = '<span class="text-rose-600 text-lg">💡 Belum tepat. Yuk, hitung satuan dan puluhannya lagi! Jawaban benar: ' + correct + '</span>';
+                btn.classList.remove('bg-white');
+                btn.classList.add('bg-rose-500', 'text-white');
+            }
+            document.getElementById('game-next-container').classList.remove('hidden');
+        }
+
+        function nextGameQuestion() {
+            currentGameIndex++;
+            loadGameQuestion();
+        }
+
+        function resetGame() {
+            currentGameIndex = 0;
+            gameScore = 0;
+            document.getElementById('game-score').innerText = gameScore;
+            loadGameQuestion();
+        }
+
+        // Kegiatan 4 - Misi Makanan Sehat (5 Soal Cerita)
+        const storyMissions = [
+            {
+                title: "Kantin Buah Segar",
+                icon: "🍎",
+                text: "Di kantin sehat sekolah, tersedia 23 buah apel dan 14 buah jeruk. Berapa jumlah buah apel dan jeruk seluruhnya?",
+                known: "apel 23 dan jeruk 14",
+                op: "penjumlahan",
+                res: 37
+            },
+            {
+                title: "Kantin Susu & Roti",
+                icon: "🥛",
+                text: "Ibu membeli 21 kotak susu sehat dan 16 roti gandum untuk bekal. Berapa jumlah makanan dan minuman tersebut?",
+                known: "susu 21 dan roti 16",
+                op: "penjumlahan",
+                res: 37
+            },
+            {
+                title: "Keranjang Buah Rani",
+                icon: "🍌",
+                text: "Rani membawa 24 buah anggur dan 13 pisang manis. Berapa jumlah buah yang dibawa Rani seluruhnya?",
+                known: "anggur 24 dan pisang 13",
+                op: "penjumlahan",
+                res: 37
+            },
+            {
+                title: "Wortel & Sayuran Hijau",
+                icon: "🥕",
+                text: "Petani memanen 25 ikat wortel segar dan 14 ikat bayam hijau. Berapa jumlah ikatan sayuran seluruhnya?",
+                known: "wortel 25 dan bayam 14",
+                op: "penjumlahan",
+                res: 39
+            },
+            {
+                title: "Bekal Buah Jeruk",
+                icon: "🍊",
+                text: "Di meja kantin terdapat 22 jeruk vitamin C dan 15 pisang cavendish. Berapa jumlah buah di meja kantin?",
+                known: "jeruk 22 dan pisang 15",
+                op: "penjumlahan",
+                res: 37
+            }
+        ];
+        let currentStoryIndex = 0;
+
+        function loadStoryMission() {
+            if (currentStoryIndex >= storyMissions.length) {
+                currentStoryIndex = 0; // loop or finish
+            }
+            const s = storyMissions[currentStoryIndex];
+            document.getElementById('story-current').innerText = currentStoryIndex + 1;
+            document.getElementById('story-title').innerText = s.title;
+            document.getElementById('story-icon').innerText = s.icon;
+            document.getElementById('story-text').innerText = `"${s.text}"`;
+            document.getElementById('story-ans-1').value = '';
+            document.getElementById('story-ans-2').value = '';
+            document.getElementById('story-ans-3').value = '';
+            document.getElementById('story-feedback').innerHTML = '';
+        }
+
+        function checkStoryMission() {
+            const s = storyMissions[currentStoryIndex];
+            const a1 = document.getElementById('story-ans-1').value.toLowerCase().trim();
+            const a2 = document.getElementById('story-ans-2').value;
+            const a3 = parseInt(document.getElementById('story-ans-3').value);
+            const fb = document.getElementById('story-feedback');
+
+            if (a2 === s.op && a3 === s.res) {
+                fb.innerHTML = '<span class="text-emerald-600">🌟 Hebat! Analisis dan perhitunganmu sangat tepat! Lanjut misi berikutnya.</span>';
+                setTimeout(() => {
+                    currentStoryIndex++;
+                    loadStoryMission();
+                }, 2000);
+            } else {
+                fb.innerHTML = '<span class="text-rose-600">💡 Coba periksa kembali jawabanmu. Pastikan operasi hitung penjumlahan dan hasilnya benar!</span>';
+            }
+        }
+
+        // ==========================================
+        // BANK SOAL LATIHAN & KUIS (10 Nomor x 10 Variasi)
+        // ==========================================
+
+        // Generator Bank Soal Latihan (10 Nomor, masing-masing 10 variasi)
+        const latihanBank = [
+            // No 1: Nilai tempat
+            [
+                { q: "Bilangan 24 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 2, ansS: 4 },
+                { q: "Bilangan 31 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 3, ansS: 1 },
+                { q: "Bilangan 42 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 4, ansS: 2 },
+                { q: "Bilangan 19 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 1, ansS: 9 },
+                { q: "Bilangan 37 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 3, ansS: 7 },
+                { q: "Bilangan 25 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 2, ansS: 5 },
+                { q: "Bilangan 40 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 4, ansS: 0 },
+                { q: "Bilangan 33 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 3, ansS: 3 },
+                { q: "Bilangan 28 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 2, ansS: 8 },
+                { q: "Bilangan 45 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 4, ansS: 5 }
+            ],
+            // No 2: Penjumlahan Bersusun Sederhana
+            [
+                { q: "Berapa hasil dari 21 + 13?", type: "mc", options: [32, 34, 44, 33], ans: 34 },
+                { q: "Berapa hasil dari 24 + 15?", type: "mc", options: [39, 38, 49, 37], ans: 39 },
+                { q: "Berapa hasil dari 12 + 26?", type: "mc", options: [38, 36, 48, 39], ans: 38 },
+                { q: "Berapa hasil dari 31 + 14?", type: "mc", options: [44, 45, 46, 35], ans: 45 },
+                { q: "Berapa hasil dari 22 + 15?", type: "mc", options: [36, 37, 38, 47], ans: 37 },
+                { q: "Berapa hasil dari 23 + 12?", type: "mc", options: [34, 35, 36, 45], ans: 35 },
+                { q: "Berapa hasil dari 14 + 23?", type: "mc", options: [36, 37, 38, 47], ans: 37 },
+                { q: "Berapa hasil dari 15 + 24?", type: "mc", options: [38, 39, 49, 37], ans: 39 },
+                { q: "Berapa hasil dari 20 + 17?", type: "mc", options: [37, 36, 38, 47], ans: 37 },
+                { q: "Berapa hasil dari 32 + 16?", type: "mc", options: [47, 48, 49, 38], ans: 48 }
+            ],
+            // No 3: Soal Cerita Makanan Sehat 1
+            [
+                { q: "Ibu membeli 23 apel dan 14 jeruk. Berapa jumlah buah yang dibeli Ibu?", type: "mc", options: [36, 37, 38, 47], ans: 37 },
+                { q: "Di kantin terdapat 21 kotak susu dan 16 roti sehat. Berapa jumlah makanan dan minuman tersebut?", type: "mc", options: [36, 37, 38, 39], ans: 37 },
+                { q: "Rani membawa 24 buah anggur dan 13 pisang. Berapa jumlah buah Rani?", type: "mc", options: [36, 37, 38, 35], ans: 37 },
+                { q: "Petani memanen 20 wortel dan 18 tomat. Berapa jumlah sayuran tersebut?", type: "mc", options: [36, 37, 38, 39], ans: 38 },
+                { q: "Siti menyiapkan 25 potong roti dan 12 gelas susu. Berapa jumlahnya?", type: "mc", options: [36, 37, 38, 39], ans: 37 },
+                { q: "Di meja ada 14 apel dan 25 pisang. Berapa jumlah seluruh buah?", type: "mc", options: [37, 38, 39, 40], ans: 39 },
+                { q: "Pak Guru membawa 21 buku dan 15 pensil. Berapa jumlah benda tersebut?", type: "mc", options: [35, 36, 37, 38], ans: 36 },
+                { q: "Budi memiliki 13 permen sehat madu dan 24 permen mint. Berapa jumlah permen?", type: "mc", options: [36, 37, 38, 39], ans: 37 },
+                { q: "Toko buah menjual 22 melon dan 16 pepaya. Berapa jumlahnya?", type: "mc", options: [36, 37, 38, 39], ans: 38 },
+                { q: "Adik makan 11 biskuit gandum dan 25 biskuit keju. Berapa jumlah biskuit?", type: "mc", options: [35, 36, 37, 38], ans: 36 }
+            ],
+            // No 4: Menentukan angka yang hilang
+            [
+                { q: "23 + ... = 37", type: "single", ans: 14 },
+                { q: "12 + ... = 38", type: "single", ans: 26 },
+                { q: "21 + ... = 39", type: "single", ans: 18 },
+                { q: "... + 14 = 37", type: "single", ans: 23 },
+                { q: "... + 15 = 39", type: "single", ans: 24 },
+                { q: "25 + ... = 39", type: "single", ans: 14 },
+                { q: "13 + ... = 37", type: "single", ans: 24 },
+                { q: "... + 22 = 38", type: "single", ans: 16 },
+                { q: "15 + ... = 37", type: "single", ans: 22 },
+                { q: "... + 13 = 35", type: "single", ans: 22 }
+            ],
+            // No 5: Penjumlahan Bentuk Vertikal
+            [
+                { q: "  21\n+ 15\n----\n  ?", type: "single", ans: 36 },
+                { q: "  24\n+ 12\n----\n  ?", type: "single", ans: 36 },
+                { q: "  13\n+ 25\n----\n  ?", type: "single", ans: 38 },
+                { q: "  32\n+ 14\n----\n  ?", type: "single", ans: 46 },
+                { q: "  11\n+ 26\n----\n  ?", type: "single", ans: 37 },
+                { q: "  23\n+ 16\n----\n  ?", type: "single", ans: 39 },
+                { q: "  14\n+ 22\n----\n  ?", type: "single", ans: 36 },
+                { q: "  25\n+ 13\n----\n  ?", type: "single", ans: 38 },
+                { q: "  31\n+ 17\n----\n  ?", type: "single", ans: 48 },
+                { q: "  12\n+ 27\n----\n  ?", type: "single", ans: 39 }
+            ],
+            // No 6: Soal Cerita Makanan Sehat 2
+            [
+                { q: "Di kantin ada 22 gelas jus jeruk dan 15 susu botol. Berapa jumlah minuman?", type: "single", ans: 37 },
+                { q: "Siti memetik 14 buah mangga dan 23 buah jambu. Berapa jumlah buah Siti?", type: "single", ans: 37 },
+                { q: "Ayah membeli 20 roti gandum dan 15 roti keju. Berapa jumlah roti ayah?", type: "single", ans: 35 },
+                { q: "Ibu menyiapkan 24 butir telur dan 12 buah tomat. Berapa jumlahnya?", type: "single", ans: 36 },
+                { q: "Di keranjang ada 13 apel merah dan 25 apel hijau. Berapa jumlah apel?", type: "single", ans: 38 },
+                { q: "Anak-anak membawa 21 buah pir dan 16 apel. Berapa jumlah buah?", type: "single", ans: 37 },
+                { q: "Kantin sekolah menyediakan 26 mangkok soto dan 12 porsi buah. Berapa jumlahnya?", type: "single", ans: 38 },
+                { q: "Budi menghitung 15 wortel dan 23 ketimun. Berapa jumlah sayuran?", type: "single", ans: 38 },
+                { q: "Tono membeli 24 biskuit dan 14 wafer sehat. Berapa jumlahnya?", type: "single", ans: 38 },
+                { q: "Ani membawa 12 jeruk dan 26 pisang. Berapa jumlahnya?", type: "single", ans: 38 }
+            ],
+            // No 7: Puluhan & Satuan Lanjutan
+            [
+                { q: "Berapa nilai dari 3 puluhan dan 5 satuan?", type: "single", ans: 35 },
+                { q: "Berapa nilai dari 4 puluhan dan 2 satuan?", type: "single", ans: 42 },
+                { q: "Berapa nilai dari 2 puluhan dan 9 satuan?", type: "single", ans: 29 },
+                { q: "Berapa nilai dari 3 puluhan dan 7 satuan?", type: "single", ans: 37 },
+                { q: "Berapa nilai dari 1 puluhan dan 8 satuan?", type: "single", ans: 18 },
+                { q: "Berapa nilai dari 4 puluhan dan 0 satuan?", type: "single", ans: 40 },
+                { q: "Berapa nilai dari 2 puluhan dan 4 satuan?", type: "single", ans: 24 },
+                { q: "Berapa nilai dari 3 puluhan dan 1 satuan?", type: "single", ans: 31 },
+                { q: "Berapa nilai dari 4 puluhan dan 8 satuan?", type: "single", ans: 48 },
+                { q: "Berapa nilai dari 2 puluhan dan 6 satuan?", type: "single", ans: 26 }
+            ],
+            // No 8: Penjumlahan Cepat 1
+            [
+                { q: "15 + 23 = ...", type: "single", ans: 38 },
+                { q: "14 + 21 = ...", type: "single", ans: 35 },
+                { q: "22 + 14 = ...", type: "single", ans: 36 },
+                { q: "13 + 22 = ...", type: "single", ans: 35 },
+                { q: "24 + 11 = ...", type: "single", ans: 35 },
+                { q: "16 + 21 = ...", type: "single", ans: 37 },
+                { q: "23 + 15 = ...", type: "single", ans: 38 },
+                { q: "11 + 28 = ...", type: "single", ans: 39 },
+                { q: "20 + 20 = ...", type: "single", ans: 40 },
+                { q: "12 + 24 = ...", type: "single", ans: 36 }
+            ],
+            // No 9: Penjumlahan Cepat 2
+            [
+                { q: "31 + 12 = ...", type: "single", ans: 43 },
+                { q: "21 + 25 = ...", type: "single", ans: 46 },
+                { q: "14 + 31 = ...", type: "single", ans: 45 },
+                { q: "23 + 24 = ...", type: "single", ans: 47 },
+                { q: "15 + 32 = ...", type: "single", ans: 47 },
+                { q: "22 + 23 = ...", type: "single", ans: 45 },
+                { q: "34 + 12 = ...", type: "single", ans: 46 },
+                { q: "11 + 35 = ...", type: "single", ans: 46 },
+                { q: "25 + 24 = ...", type: "single", ans: 49 },
+                { q: "13 + 31 = ...", type: "single", ans: 44 }
+            ],
+            // No 10: Soal Cerita Makanan Sehat 3
+            [
+                { q: "Di piring ada 21 kue mangkok dan 17 donat sehat. Berapa jumlah kue?", type: "single", ans: 38 },
+                { q: "Ibu merebus 23 jagung manis dan 14 ubi. Berapa jumlahnya?", type: "single", ans: 37 },
+                { q: "Siswa kelas 2A membawa 24 botol susu dan 15 buah apel. Berapa jumlahnya?", type: "single", ans: 39 },
+                { q: "Di kebun sekolah terdapat 22 pohon tomat dan 13 terong. Berapa jumlah tanaman?", type: "single", ans: 35 },
+                { q: "Kantin menyediakan 15 mangkok bubur kacang hijau dan 21 roti. Berapa jumlahnya?", type: "single", ans: 36 },
+                { q: "Ani mengumpulkan 20 biji kacang hijau dan 18 kacang kedelai. Berapa jumlahnya?", type: "single", ans: 38 },
+                { q: "Pak Tani memanen 25 melon dan 12 semangka mini. Berapa jumlahnya?", type: "single", ans: 37 },
+                { q: "Ibu membeli 14 jeruk bali dan 24 jeruk nipis. Berapa jumlahnya?", type: "single", ans: 38 },
+                { q: "Di meja terdapat 16 kotak susu cokelat dan 21 susu putih. Berapa jumlah susu?", type: "single", ans: 37 },
+                { q: "Siti membawa 23 permen susu dan 15 biskuit. Berapa jumlahnya?", type: "single", ans: 38 }
+            ]
+        ];
+
+        let activeLatihanQuestions = [];
+
+        function initLatihan() {
+            activeLatihanQuestions = [];
+            const container = document.getElementById('latihan-questions-container');
+            container.innerHTML = '';
+
+            latihanBank.forEach((variations, index) => {
+                // Pilih 1 variasi secara acak dari 10 variasi
+                const randomVar = variations[Math.floor(Math.random() * variations.length)];
+                activeLatihanQuestions.push(randomVar);
+
+                const card = document.createElement('div');
+                card.className = "bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-sm";
+                
+                let inputHtml = '';
+                if (randomVar.type === 'fill2') {
+                    inputHtml = `
+                        <div class="flex items-center gap-2 mt-3">
+                            <input type="number" id="lat-p-${index}" class="w-16 p-2 rounded-xl border border-slate-300 text-center font-bold" placeholder="Puluhan"> puluhan & 
+                            <input type="number" id="lat-s-${index}" class="w-16 p-2 rounded-xl border border-slate-300 text-center font-bold" placeholder="Satuan"> satuan
+                        </div>
+                    `;
+                } else if (randomVar.type === 'mc') {
+                    const shuffledOpts = [...randomVar.options].sort(() => Math.random() - 0.5);
+                    inputHtml = `<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3">`;
+                    shuffledOpts.forEach(opt => {
+                        inputHtml += `
+                            <label class="flex items-center gap-2 bg-white p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-teal-50 transition">
+                                <input type="radio" name="lat-${index}" value="${opt}" class="text-teal-600">
+                                <span class="font-bold text-slate-800">${opt}</span>
+                            </label>
+                        `;
+                    });
+                    inputHtml += `</div>`;
+                } else {
+                    inputHtml = `
+                        <div class="mt-3">
+                            <input type="number" id="lat-single-${index}" class="w-32 p-2 rounded-xl border border-slate-300 font-bold text-center text-lg" placeholder="Jawaban">
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="font-bold text-slate-800 text-sm md:text-base mb-2">Soal ${index + 1}: ${randomVar.q}</div>
+                    ${inputHtml}
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('latihan-result-box').classList.add('hidden');
+        }
+
+        function submitLatihan() {
+            let correctCount = 0;
+            activeLatihanQuestions.forEach((item, index) => {
+                let userCorrect = false;
+                if (item.type === 'fill2') {
+                    const p = parseInt(document.getElementById(`lat-p-${index}`).value);
+                    const s = parseInt(document.getElementById(`lat-s-${index}`).value);
+                    if (p === item.ansP && s === item.ansS) userCorrect = true;
+                } else if (item.type === 'mc') {
+                    const selected = document.querySelector(`input[name="lat-${index}"]:checked`);
+                    if (selected && parseInt(selected.value) === item.ans) userCorrect = true;
+                } else {
+                    const val = parseInt(document.getElementById(`lat-single-${index}`).value);
+                    if (val === item.ans) userCorrect = true;
+                }
+                if (userCorrect) correctCount++;
+            });
+
+            const score = correctCount * 10;
+            const resBox = document.getElementById('latihan-result-box');
+            resBox.classList.remove('hidden');
+            document.getElementById('latihan-score-text').innerText = `Benar: ${correctCount} dari 10 | Skor: ${score}`;
+            
+            let msg = "";
+            if (score >= 90) msg = "Luar biasa! Kamu sangat hebat! 🌟";
+            else if (score >= 70) msg = "Hebat! Terus berlatih! ⭐";
+            else if (score >= 50) msg = "Bagus! Yuk, belajar lagi! 💪";
+            else msg = "Tidak apa-apa. Ayo coba lagi! 😊";
+            document.getElementById('latihan-msg').innerText = msg;
+            
+            // update stat
+            document.getElementById('stat-latihan-score').innerText = `${correctCount}/10`;
+        }
+
+        // Generator Bank Soal Kuis Tantangan (10 Nomor x 10 Variasi)
+        const kuisBank = [
+            // No 1: Nilai tempat
+            [
+                { q: "Bilangan 34 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 3, ansS: 4 },
+                { q: "Bilangan 27 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 2, ansS: 7 },
+                { q: "Bilangan 45 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 4, ansS: 5 },
+                { q: "Bilangan 18 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 1, ansS: 8 },
+                { q: "Bilangan 39 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 3, ansS: 9 },
+                { q: "Bilangan 22 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 2, ansS: 2 },
+                { q: "Bilangan 41 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 4, ansS: 1 },
+                { q: "Bilangan 36 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 3, ansS: 6 },
+                { q: "Bilangan 29 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 2, ansS: 9 },
+                { q: "Bilangan 44 terdiri dari ... puluhan dan ... satuan.", type: "fill2", ansP: 4, ansS: 4 }
+            ],
+            // No 2: Penjumlahan Bersusun
+            [
+                { q: "Berapa hasil dari 23 + 14?", type: "mc", options: [36, 37, 38, 47], ans: 37 },
+                { q: "Berapa hasil dari 12 + 25?", type: "mc", options: [35, 37, 39, 42], ans: 37 },
+                { q: "Berapa hasil dari 21 + 17?", type: "mc", options: [36, 38, 48, 39], ans: 38 },
+                { q: "Berapa hasil dari 13 + 24?", type: "mc", options: [36, 37, 47, 35], ans: 37 },
+                { q: "Berapa hasil dari 25 + 14?", type: "mc", options: [39, 41, 38, 37], ans: 39 },
+                { q: "Berapa hasil dari 20 + 15?", type: "mc", options: [35, 45, 37, 36], ans: 35 },
+                { q: "Berapa hasil dari 14 + 23?", type: "mc", options: [36, 37, 38, 47], ans: 37 },
+                { q: "Berapa hasil dari 22 + 16?", type: "mc", options: [38, 48, 36, 39], ans: 38 },
+                { q: "Berapa hasil dari 11 + 27?", type: "mc", options: [37, 38, 39, 48], ans: 38 },
+                { q: "Berapa hasil dari 23 + 12?", type: "mc", options: [34, 35, 36, 45], ans: 35 }
+            ],
+            // No 3: Soal Cerita Makanan Sehat
+            [
+                { q: "Di kantin ada 23 apel dan 14 jeruk. Berapa jumlah buah seluruhnya?", type: "single", ans: 37 },
+                { q: "Ibu membeli 21 kotak susu dan 16 roti sehat. Berapa jumlahnya?", type: "single", ans: 37 },
+                { q: "Rani membawa 24 buah anggur dan 13 pisang. Berapa jumlahnya?", type: "single", ans: 37 },
+                { q: "Petani memanen 25 wortel dan 14 sayuran hijau. Berapa jumlahnya?", type: "single", ans: 39 },
+                { q: "Di meja ada 22 jeruk dan 15 pisang. Berapa jumlah buah?", type: "single", ans: 37 },
+                { q: "Siti menyiapkan 20 roti dan 18 susu. Berapa jumlahnya?", type: "single", ans: 38 },
+                { q: "Ayah membawa 13 apel dan 25 pir. Berapa jumlahnya?", type: "single", ans: 38 },
+                { q: "Toko buah menjual 21 melon dan 16 pepaya. Berapa jumlahnya?", type: "single", ans: 37 },
+                { q: "Adik makan 12 biskuit gandum dan 24 biskuit keju. Berapa jumlahnya?", type: "single", ans: 36 },
+                { q: "Budi menghitung 14 tomat dan 23 ketimun. Berapa jumlah sayuran?", type: "single", ans: 37 }
+            ],
+            // No 4: Menentukan angka yang hilang
+            [
+                { q: "24 + ... = 37", type: "single", ans: 13 },
+                { q: "13 + ... = 37", type: "single", ans: 24 },
+                { q: "21 + ... = 38", type: "single", ans: 17 },
+                { q: "... + 14 = 38", type: "single", ans: 24 },
+                { q: "25 + ... = 39", type: "single", ans: 14 },
+                { q: "... + 15 = 35", type: "single", ans: 20 },
+                { q: "12 + ... = 37", type: "single", ans: 25 },
+                { q: "... + 16 = 38", type: "single", ans: 22 },
+                { q: "11 + ... = 38", type: "single", ans: 27 },
+                { q: "... + 12 = 35", type: "single", ans: 23 }
+            ],
+            // No 5: Penjumlahan Vertikal
+            [
+                { q: "  23\n+ 14\n----\n  ?", type: "single", ans: 37 },
+                { q: "  12\n+ 25\n----\n  ?", type: "single", ans: 37 },
+                { q: "  21\n+ 17\n----\n  ?", type: "single", ans: 38 },
+                { q: "  13\n+ 24\n----\n  ?", type: "single", ans: 37 },
+                { q: "  25\n+ 14\n----\n  ?", type: "single", ans: 39 },
+                { q: "  20\n+ 15\n----\n  ?", type: "single", ans: 35 },
+                { q: "  14\n+ 23\n----\n  ?", type: "single", ans: 37 },
+                { q: "  22\n+ 16\n----\n  ?", type: "single", ans: 38 },
+                { q: "  11\n+ 27\n----\n  ?", type: "single", ans: 38 },
+                { q: "  23\n+ 12\n----\n  ?", type: "single", ans: 35 }
+            ],
+            // No 6: Analisis Soal Cerita
+            [
+                { q: "Untuk mencari jumlah seluruh buah dalam soal cerita, operasi apa yang digunakan?", type: "mc", options: ["Penjumlahan (+)", "Pengurangan (-)", "Perkalian (x)", "Pembagian (:)"], ans: "Penjumlahan (+)" },
+                { q: "Jika Ibu membeli 23 apel lalu membeli lagi 14 jeruk, cara menghitung totalnya adalah...", type: "mc", options: ["23 + 14", "23 - 14", "14 - 23", "23 x 14"], ans: "23 + 14" },
+                { q: "Dalam penjumlahan bersusun, bagian mana yang harus dijumlahkan terlebih dahulu?", type: "mc", options: ["Tempat Satuan", "Tempat Puluhan", "Bebas", "Dari tengah"], ans: "Tempat Satuan" },
+                { q: "Apakah penjumlahan bersusun sampai 50 tanpa menyimpan memerlukan teknik menyimpan ke puluhan?", type: "mc", options: ["Tidak", "Ya", "Kadang-kadang", "Selalu"], ans: "Tidak" },
+                { q: "Berapa jumlah maksimal hasil penjumlahan dalam materi ini?", type: "mc", options: ["Sampai 50", "Sampai 100", "Sampai 20", "Sampai 10"], ans: "Sampai 50" },
+                { q: "Manakah yang termasuk contoh benda konkret untuk puluhan?", type: "mc", options: ["10 buah apel", "1 buah apel", "2 buah apel", "Setengah apel"], ans: "10 buah apel" },
+                { q: "Jika hasil penjumlahan satuan adalah 7, apakah perlu teknik menyimpan?", type: "mc", options: ["Tidak", "Ya", "Harus", "Bisa jadi"], ans: "Tidak" },
+                { q: "Manakah yang menunjukkan bilangan 3 puluhan dan 5 satuan?", type: "mc", options: ["35", "53", "305", "350"], ans: "35" },
+                { q: "Di kantin ada 21 kotak susu dan 16 roti, manakah angka puluhannya pada 21?", type: "mc", options: ["2", "1", "21", "0"], ans: "2" },
+                { q: "Apa nama alat atau media untuk menghitung kelompok 10 benda?", type: "mc", options: ["Puluhan", "Satuan", "Ratusan", "Ribuan"], ans: "Puluhan" }
+            ],
+            // No 7: Nilai Angka
+            [
+                { q: "Angka 3 pada bilangan 37 menempati tempat...", type: "mc", options: ["Puluhan", "Satuan", "Ratusan", "Ribuan"], ans: "Puluhan" },
+                { q: "Angka 4 pada bilangan 24 menempati tempat...", type: "mc", options: ["Satuan", "Puluhan", "Ratusan", "Ribuan"], ans: "Satuan" },
+                { q: "Angka 2 pada bilangan 25 menempati tempat...", type: "mc", options: ["Puluhan", "Satuan", "Ratusan", "Ribuan"], ans: "Puluhan" },
+                { q: "Angka 8 pada bilangan 18 menempati tempat...", type: "mc", options: ["Satuan", "Puluhan", "Ratusan", "Ribuan"], ans: "Satuan" },
+                { q: "Angka 4 pada bilangan 42 menempati tempat...", type: "mc", options: ["Puluhan", "Satuan", "Ratusan", "Ribuan"], ans: "Puluhan" },
+                { q: "Angka 1 pada bilangan 31 menempati tempat...", type: "mc", options: ["Satuan", "Puluhan", "Ratusan", "Ribuan"], ans: "Satuan" },
+                { q: "Angka 3 pada bilangan 33 menempati tempat puluhan bernilai...", type: "mc", options: ["30", "3", "33", "0"], ans: "30" },
+                { q: "Angka 2 pada bilangan 26 menempati tempat puluhan bernilai...", type: "mc", options: ["20", "2", "26", "0"], ans: "20" },
+                { q: "Angka 4 pada bilangan 40 menempati tempat puluhan bernilai...", type: "mc", options: ["40", "4", "0", "14"], ans: "40" },
+                { q: "Angka 5 pada bilangan 25 menempati tempat satuan bernilai...", type: "mc", options: ["5", "50", "25", "2"], ans: "5" }
+            ],
+            // No 8: Penjumlahan Cepat 1
+            [
+                { q: "15 + 23 = ...", type: "single", ans: 38 },
+                { q: "14 + 21 = ...", type: "single", ans: 35 },
+                { q: "22 + 14 = ...", type: "single", ans: 36 },
+                { q: "13 + 22 = ...", type: "single", ans: 35 },
+                { q: "24 + 11 = ...", type: "single", ans: 35 },
+                { q: "16 + 21 = ...", type: "single", ans: 37 },
+                { q: "23 + 15 = ...", type: "single", ans: 38 },
+                { q: "11 + 28 = ...", type: "single", ans: 39 },
+                { q: "20 + 20 = ...", type: "single", ans: 40 },
+                { q: "12 + 24 = ...", type: "single", ans: 36 }
+            ],
+            // No 9: Penjumlahan Cepat 2
+            [
+                { q: "31 + 12 = ...", type: "single", ans: 43 },
+                { q: "21 + 25 = ...", type: "single", ans: 46 },
+                { q: "14 + 31 = ...", type: "single", ans: 45 },
+                { q: "23 + 24 = ...", type: "single", ans: 47 },
+                { q: "15 + 32 = ...", type: "single", ans: 47 },
+                { q: "22 + 23 = ...", type: "single", ans: 45 },
+                { q: "34 + 12 = ...", type: "single", ans: 46 },
+                { q: "11 + 35 = ...", type: "single", ans: 46 },
+                { q: "25 + 24 = ...", type: "single", ans: 49 },
+                { q: "13 + 31 = ...", type: "single", ans: 44 }
+            ],
+            // No 10: Soal Cerita Makanan Sehat Akhir
+            [
+                { q: "Di kantin sehat ada 24 apel dan 15 pisang. Berapa jumlah buah di kantin?", type: "single", ans: 39 },
+                { q: "Ibu guru membawa 21 kotak susu dan 18 roti sehat. Berapa jumlahnya?", type: "single", ans: 39 },
+                { q: "Siti memanen 22 buah mangga dan 15 jambu. Berapa jumlahnya?", type: "single", ans: 37 },
+                { q: "Di meja terdapat 13 wortel dan 24 ketimun. Berapa jumlah sayuran?", type: "single", ans: 37 },
+                { q: "Budi membeli 25 butir telur dan 12 tomat. Berapa jumlahnya?", type: "single", ans: 37 },
+                { q: "Anak-anak membawa 20 buah pir dan 19 apel. Berapa jumlahnya?", type: "single", ans: 39 },
+                { q: "Kantin menyediakan 26 mangkok soto dan 12 porsi buah. Berapa jumlahnya?", type: "single", ans: 38 },
+                { q: "Tono membeli 14 biskuit gandum dan 23 biskuit keju. Berapa jumlahnya?", type: "single", ans: 37 },
+                { q: "Ani membawa 12 jeruk dan 26 pisang. Berapa jumlah buah Ani?", type: "single", ans: 38 },
+                { q: "Di keranjang terdapat 23 apel merah dan 14 apel hijau. Berapa jumlah apel?", type: "single", ans: 37 }
+            ]
+        ];
+
+        let activeKuisQuestions = [];
+
+        function initKuis() {
+            activeKuisQuestions = [];
+            const container = document.getElementById('kuis-questions-container');
+            container.innerHTML = '';
+
+            kuisBank.forEach((variations, index) => {
+                // Pilih 1 variasi secara acak dari 10 variasi
+                const randomVar = variations[Math.floor(Math.random() * variations.length)];
+                activeKuisQuestions.push(randomVar);
+
+                const card = document.createElement('div');
+                card.className = "bg-slate-50 p-5 rounded-2xl border border-slate-200 shadow-sm";
+                
+                let inputHtml = '';
+                if (randomVar.type === 'fill2') {
+                    inputHtml = `
+                        <div class="flex items-center gap-2 mt-3">
+                            <input type="number" id="kuis-p-${index}" class="w-16 p-2 rounded-xl border border-slate-300 text-center font-bold" placeholder="Puluhan"> puluhan & 
+                            <input type="number" id="kuis-s-${index}" class="w-16 p-2 rounded-xl border border-slate-300 text-center font-bold" placeholder="Satuan"> satuan
+                        </div>
+                    `;
+                } else if (randomVar.type === 'mc') {
+                    const shuffledOpts = [...randomVar.options].sort(() => Math.random() - 0.5);
+                    inputHtml = `<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3">`;
+                    shuffledOpts.forEach(opt => {
+                        inputHtml += `
+                            <label class="flex items-center gap-2 bg-white p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-amber-50 transition">
+                                <input type="radio" name="kuis-${index}" value="${opt}" class="text-amber-600">
+                                <span class="font-bold text-slate-800 text-sm">${opt}</span>
+                            </label>
+                        `;
+                    });
+                    inputHtml += `</div>`;
+                } else {
+                    inputHtml = `
+                        <div class="mt-3">
+                            <input type="number" id="kuis-single-${index}" class="w-32 p-2 rounded-xl border border-slate-300 font-bold text-center text-lg" placeholder="Jawaban">
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="font-bold text-slate-800 text-sm md:text-base mb-2">Soal Kuis ${index + 1}: ${randomVar.q}</div>
+                    ${inputHtml}
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('kuis-result-box').classList.add('hidden');
+        }
+
+        function submitKuis() {
+            let correctCount = 0;
+            activeKuisQuestions.forEach((item, index) => {
+                let userCorrect = false;
+                if (item.type === 'fill2') {
+                    const p = parseInt(document.getElementById(`kuis-p-${index}`).value);
+                    const s = parseInt(document.getElementById(`kuis-s-${index}`).value);
+                    if (p === item.ansP && s === item.ansS) userCorrect = true;
+                } else if (item.type === 'mc') {
+                    const selected = document.querySelector(`input[name="kuis-${index}"]:checked`);
+                    if (selected && selected.value.toString().trim() === item.ans.toString().trim()) userCorrect = true;
+                } else {
+                    const val = parseInt(document.getElementById(`kuis-single-${index}`).value);
+                    if (val === item.ans) userCorrect = true;
+                }
+                if (userCorrect) correctCount++;
+            });
+
+            const score = correctCount * 10;
+            const resBox = document.getElementById('kuis-result-box');
+            resBox.classList.remove('hidden');
+            document.getElementById('kuis-score-display').innerText = `Skor Kamu: ${score} dari 100 (${correctCount} Benar dari 10 Soal)`;
+            
+            let msg = "";
+            let badgeHtml = "";
+            if (score >= 90) {
+                msg = "Luar biasa! Kamu sangat hebat! 🌟";
+                badgeHtml = '<div class="text-4xl animate-bounce-gentle">🏆</div>';
+            } else if (score >= 70) {
+                msg = "Hebat! Terus berlatih! ⭐";
+                badgeHtml = '<div class="text-4xl animate-bounce-gentle">⭐</div>';
+            } else if (score >= 50) {
+                msg = "Bagus! Yuk, belajar lagi! 💪";
+                badgeHtml = '<div class="text-4xl animate-bounce-gentle">💪</div>';
+            } else {
+                msg = "Tidak apa-apa. Ayo coba lagi! 😊";
+                badgeHtml = '<div class="text-4xl animate-bounce-gentle">😊</div>';
+            }
+            document.getElementById('kuis-feedback-msg').innerText = msg;
+            document.getElementById('badge-container').innerHTML = badgeHtml;
+
+            // update stat
+            document.getElementById('stat-kuis-score').innerText = `${score}/100`;
+        }
+
+        function updateStatDisplay() {
+            document.getElementById('stat-game-score').innerText = `${gameScore} ⭐`;
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            initLatihan();
+            initKuis();
+            loadGameQuestion();
+            loadStoryMission();
+        };
+    </script>
+</body>
+</html>
